@@ -18,7 +18,7 @@ function openUser(user: User) {
 
 <template>
   <section>
-    <v-card rounded="lg" elevation="4">
+    <v-card rounded="lg" elevation="4" :class="{ 'table-empty': users.length === 0 && !isLoading }">
       <v-data-table
         :headers="headers"
         :items="users"
@@ -46,14 +46,11 @@ function openUser(user: User) {
             </td>
           </tr>
         </template>
+        <!-- Slot para el mensaje de tabla vacía (opcional, personalizable) -->
+        <template #no-data>
+          <div class="no-data-message">No data available</div>
+        </template>
       </v-data-table>
     </v-card>
   </section>
 </template>
-<style scoped lang="scss">
-.users-table {
-  background: var(--gray-100);
-  border-radius: 1rem;
-  box-shadow: var(--box-shadow);
-}
-</style>

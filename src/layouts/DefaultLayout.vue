@@ -4,7 +4,7 @@ import AppHeader from '@/shared/components/AppHeader.vue'
 </script>
 
 <template>
-  <v-layout>
+  <v-app>
     <app-header />
 
     <v-main>
@@ -14,7 +14,7 @@ import AppHeader from '@/shared/components/AppHeader.vue'
     </v-main>
 
     <app-footer />
-  </v-layout>
+  </v-app>
 </template>
 
 <style lang="scss" scoped>
