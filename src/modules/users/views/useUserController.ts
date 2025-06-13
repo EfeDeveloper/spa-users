@@ -2,6 +2,7 @@ import { computed, onMounted, ref } from 'vue'
 
 import type { User, UserStats } from '@/domain/users/models/User'
 import { UserApiRepository } from '@/domain/users/services/user.service'
+import { getErrorMessage } from '@/shared/utils/getErrorMessage'
 import { withLoading } from '@/shared/utils/withLoading'
 
 export const useUserController = () => {
@@ -12,11 +13,12 @@ export const useUserController = () => {
 
   const showUserDialog = ref(false)
   const userSelected = ref<User | null>(null)
-
-  // Valor de búsqueda interno
   const searchValue = ref('')
 
-  // Lista filtrada, reactiva
+  // 👇 Nuevo: Estado para error snackbar
+  const errorMessage = ref('')
+  const showError = ref(false)
+
   const filteredUsers = computed(() =>
     searchValue.value.trim()
       ? userList.value.filter((user) =>
@@ -31,11 +33,20 @@ export const useUserController = () => {
   }
 
   function handleSearch(query: string) {
+    if (!query.trim() || /\s{3,}/.test(query)) {
+      showApiError('The search cannot be empty. Please enter a valid term.')
+    }
     searchValue.value = query
   }
 
   function handleReset() {
     searchValue.value = ''
+  }
+
+  // 👇 Manejo centralizado de errores
+  function showApiError(message: string) {
+    errorMessage.value = message
+    showError.value = true
   }
 
   const getUsersStats = async () => {
@@ -45,7 +56,7 @@ export const useUserController = () => {
       )
       userStats.value = stats
     } catch (error) {
-      console.log('🚀  -- error:', error)
+      showApiError(getErrorMessage(error) || 'Error al cargar las estadísticas de usuarios.')
     }
   }
 
@@ -56,7 +67,7 @@ export const useUserController = () => {
       )
       userList.value = users
     } catch (error) {
-      console.log('🚀  -- error:', error)
+      showApiError(getErrorMessage(error) || 'Error al cargar la lista de usuarios.')
     }
   }
 
@@ -74,5 +85,7 @@ export const useUserController = () => {
     filteredUsers,
     handleSearch,
     handleReset,
+    errorMessage,
+    showError,
   }
 }

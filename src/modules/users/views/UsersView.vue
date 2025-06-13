@@ -11,11 +11,13 @@ const {
   showUserDialog,
   userSelected,
   handleUserInformation,
-  filteredUsers,
   userStats,
   isLoading,
+  filteredUsers,
   handleSearch,
   handleReset,
+  errorMessage,
+  showError,
 } = useUserController()
 </script>
 
@@ -44,6 +46,16 @@ const {
         <user-description :user="userSelected!" />
       </template>
     </default-modal>
+    <v-snackbar
+      v-model="showError"
+      :timeout="4000"
+      color="error"
+      location="top right"
+      variant="elevated"
+      absolute
+    >
+      {{ errorMessage }}
+    </v-snackbar>
   </section>
 </template>
 
