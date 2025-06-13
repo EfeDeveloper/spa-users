@@ -1,4 +1,4 @@
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 
 import type { User, UserStats } from '@/domain/users/models/User'
 import { UserApiRepository } from '@/domain/users/services/user.service'
@@ -13,9 +13,29 @@ export const useUserController = () => {
   const showUserDialog = ref(false)
   const userSelected = ref<User | null>(null)
 
+  // Valor de búsqueda interno
+  const searchValue = ref('')
+
+  // Lista filtrada, reactiva
+  const filteredUsers = computed(() =>
+    searchValue.value.trim()
+      ? userList.value.filter((user) =>
+          user.name.toLowerCase().includes(searchValue.value.trim().toLowerCase()),
+        )
+      : userList.value,
+  )
+
   const handleUserInformation = (user: User) => {
     showUserDialog.value = true
     userSelected.value = user
+  }
+
+  function handleSearch(query: string) {
+    searchValue.value = query
+  }
+
+  function handleReset() {
+    searchValue.value = ''
   }
 
   const getUsersStats = async () => {
@@ -29,7 +49,6 @@ export const useUserController = () => {
     }
   }
 
-  // TODO: Pending implement Pagination feature, based on the call to the API
   const getUsersList = async () => {
     try {
       const users = await withLoading(isLoading.value, 'userList', () =>
@@ -50,8 +69,10 @@ export const useUserController = () => {
     showUserDialog,
     userSelected,
     handleUserInformation,
-    userList,
     userStats,
     isLoading,
+    filteredUsers,
+    handleSearch,
+    handleReset,
   }
 }
