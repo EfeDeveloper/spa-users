@@ -95,3 +95,6 @@ spa-users/
 3. Create a clear Pull Request explaining your changes
 
 All contributions are welcome! 🚀
+
+## License
+[MIT](LICENSE)
