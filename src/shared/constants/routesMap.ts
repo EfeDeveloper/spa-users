@@ -1,4 +1,3 @@
-// src/shared/constants/routes.ts
 import type { RouteMap } from '@/shared/types/RouteMeta'
 
 export const routesMap: RouteMap = {
