@@ -1,5 +1,5 @@
 export interface User {
-  id: string
+  id: number
   name: string
   email: string
   avatarUrl?: string
@@ -7,4 +7,12 @@ export interface User {
   phone?: string
   company?: string
   webSite?: string
+}
+
+export interface UserStats {
+  title: string
+  value: number
+  chip: string
+  chipColor: 'success' | 'error'
+  description: string
 }
