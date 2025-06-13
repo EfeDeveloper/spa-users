@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 
-import { routesMap } from '@/shared/constants/rotesMap'
+import { routesMap } from '@/shared/constants/routesMap'
 
 const UsersView = () => import('@/modules/users/views/UsersView.vue')
 
