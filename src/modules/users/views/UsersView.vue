@@ -3,11 +3,20 @@ import UserDescription from '@/modules/users/components/UserDescription.vue'
 import UsersTable from '@/modules/users/components/UsersTable.vue'
 import { useUserController } from '@/modules/users/views/useUserController'
 import DefaultModal from '@/shared/components/DefaultModal.vue'
+import SearchBar from '@/shared/components/SearchBar.vue'
 import SectionHeader from '@/shared/components/SectionHeader.vue'
 import StatsCards from '@/shared/components/StatsCards.vue'
 
-const { showUserDialog, userSelected, handleUserInformation, userList, userStats, isLoading } =
-  useUserController()
+const {
+  showUserDialog,
+  userSelected,
+  handleUserInformation,
+  filteredUsers,
+  userStats,
+  isLoading,
+  handleSearch,
+  handleReset,
+} = useUserController()
 </script>
 
 <template>
@@ -15,11 +24,12 @@ const { showUserDialog, userSelected, handleUserInformation, userList, userStats
     <section-header title="Users" subtitle="List of users registered in the system" />
 
     <stats-cards :stats="userStats" :isLoading="isLoading.userStats" />
+    <search-bar @search="handleSearch" @reset="handleReset" />
 
     <!-- TODO: Pending implement Pagination feature, based on the call to the API -->
 
     <users-table
-      :users="userList"
+      :users="filteredUsers"
       :isLoading="isLoading.userList"
       @user-information="handleUserInformation"
     />
