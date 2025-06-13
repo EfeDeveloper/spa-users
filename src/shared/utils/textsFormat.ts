@@ -1,3 +1,8 @@
+interface RandomChip {
+  chip: string
+  chipColor: 'success' | 'error'
+}
+
 export const getInitials = (text: string) => {
   if (!text) return ''
   const words = text.split(' ')
@@ -6,4 +11,11 @@ export const getInitials = (text: string) => {
 
 export const formatWebsiteUrl = (webSiteUrl: string) => {
   return webSiteUrl?.startsWith('http') ? webSiteUrl : `https://${webSiteUrl}`
+}
+
+export const randomChip = (): RandomChip => {
+  const percent = (Math.random() * 2 - 1).toFixed(2)
+  const chipColor = percent.startsWith('-') ? 'error' : 'success'
+  const chip = `${percent}%`
+  return { chip, chipColor }
 }
