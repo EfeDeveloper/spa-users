@@ -1,5 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import DefaultLayout from '@/layouts/DefaultLayout.vue'
+</script>
 
 <template>
-  <div>Hello world</div>
+  <default-layout>
+    <template #main-view>
+      <router-view />
+    </template>
+  </default-layout>
 </template>
