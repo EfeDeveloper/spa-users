@@ -59,7 +59,7 @@ npm run build        # or yarn build
 npm run test         # or yarn test
 ```
 
-## 📦 Project Structure
+## Project Structure
 
 ```bash
 spa-users/
@@ -79,7 +79,7 @@ spa-users/
 └── README.md           # Project documentation
 ```
 
-## 💡 Best Practices & Conventions
+## Best Practices & Conventions
 
 - Semantic commit messages with emojis for clarity
 - Functional, decoupled, testable components
@@ -88,7 +88,7 @@ spa-users/
 - Centralized error handling and user feedback
 - Automatic linting & formatting on save/CI
 
-## 🤝 Contribución
+## Contribución
 
 1. Fork the repo and create a descriptive branch (e.g., feature/add-login)
 2. Write code, tests, and ensure lint passes
